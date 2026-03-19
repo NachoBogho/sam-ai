@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ROICalculator } from "@/components/roi-calculator";
+import { N8nFlowDemo } from "@/components/n8n-flow-demo";
 import {
   MessageSquare,
   Workflow,
@@ -796,6 +797,11 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ── n8n Flow Demo ── */}
+      <section className="border-t border-white/5 px-6 py-28">
+        <N8nFlowDemo lang={lang} />
       </section>
 
       {/* ── Proceso ── */}
