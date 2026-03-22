@@ -203,7 +203,7 @@ export function N8nFlowDemo({ lang }: N8nFlowDemoProps) {
 
   useEffect(() => {
     if (!isPlaying) return;
-    const timer = setTimeout(advance, 2200);
+    const timer = setTimeout(advance, 3500);
     return () => clearTimeout(timer);
   }, [isPlaying, activeStep, advance]);
 
@@ -290,98 +290,91 @@ export function N8nFlowDemo({ lang }: N8nFlowDemoProps) {
               {content.clickHint}
             </p>
 
-            {/* Nodes row */}
-            <div className="flex items-center justify-between">
+            {/* Nodes row — nodes and connectors as separate flex children so nodes stay centered */}
+            <div className="mx-auto flex max-w-4xl items-center">
               {nodes.map((node, i) => {
                 const isActive = i === activeStep;
                 const isPast = i < activeStep;
                 const isLit = isActive || isPast;
 
                 return (
-                  <div key={node.tech} className="flex items-center flex-1 min-w-0">
-                    {/* Node button */}
-                    <button
-                      onClick={() => handleNodeClick(i)}
-                      className="group relative flex flex-col items-center gap-2.5 focus:outline-none"
-                    >
-                      {/* Glow halo for active node */}
-                      {isActive && (
-                        <motion.div
-                          layoutId="nodeGlow"
-                          className="absolute -inset-5 rounded-3xl"
-                          style={{
-                            background: `radial-gradient(ellipse at center, ${node.accentColor}18 0%, transparent 70%)`,
-                          }}
-                          transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        />
-                      )}
-
-                      {/* Node card */}
-                      <motion.div
-                        className="relative z-10 flex h-14 w-14 items-center justify-center rounded-xl border transition-all duration-300 md:h-[4.5rem] md:w-[4.5rem] md:rounded-2xl"
-                        style={{
-                          background: isLit
-                            ? `${node.accentColor}1A`
-                            : "rgba(255,255,255,0.04)",
-                          borderColor: isActive
-                            ? `${node.accentColor}70`
-                            : isPast
-                            ? `${node.accentColor}35`
-                            : "rgba(255,255,255,0.07)",
-                          boxShadow: isActive
-                            ? `0 0 20px ${node.accentColor}20, inset 0 0 20px ${node.accentColor}08`
-                            : "none",
-                        }}
-                        animate={isActive ? { scale: [1, 1.04, 1] } : { scale: 1 }}
-                        transition={{ duration: 0.5 }}
+                  <div key={node.tech} className="flex flex-1 items-center">
+                    {/* Node — centered in its own block */}
+                    <div className="flex flex-1 flex-col items-center">
+                      <button
+                        onClick={() => handleNodeClick(i)}
+                        className="group relative flex flex-col items-center gap-2.5 focus:outline-none"
                       >
-                        <node.icon
-                          className="size-6 transition-colors duration-300 md:size-7"
-                          style={{
-                            color: isLit ? node.accentColor : "#374151",
-                          }}
-                        />
-                        {/* Step badge */}
-                        <div
-                          className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full font-mono text-[10px] font-bold transition-all duration-300"
+                        {/* Glow halo for active node */}
+                        {isActive && (
+                          <motion.div
+                            layoutId="nodeGlow"
+                            className="absolute -inset-5 rounded-3xl"
+                            style={{
+                              background: `radial-gradient(ellipse at center, ${node.accentColor}18 0%, transparent 70%)`,
+                            }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                          />
+                        )}
+
+                        {/* Node card */}
+                        <motion.div
+                          className="relative z-10 flex h-14 w-14 items-center justify-center rounded-xl border transition-all duration-300 md:h-[4.5rem] md:w-[4.5rem] md:rounded-2xl"
                           style={{
                             background: isLit
-                              ? node.accentColor
-                              : "rgba(255,255,255,0.06)",
-                            color: isLit ? "#000" : "#4B5563",
+                              ? `${node.accentColor}1A`
+                              : "rgba(255,255,255,0.04)",
+                            borderColor: isActive
+                              ? `${node.accentColor}70`
+                              : isPast
+                              ? `${node.accentColor}35`
+                              : "rgba(255,255,255,0.07)",
+                            boxShadow: isActive
+                              ? `0 0 20px ${node.accentColor}20, inset 0 0 20px ${node.accentColor}08`
+                              : "none",
                           }}
+                          animate={isActive ? { scale: [1, 1.04, 1] } : { scale: 1 }}
+                          transition={{ duration: 0.5 }}
                         >
-                          {i + 1}
-                        </div>
-                      </motion.div>
+                          <node.icon
+                            className="size-6 transition-colors duration-300 md:size-7"
+                            style={{ color: isLit ? node.accentColor : "#374151" }}
+                          />
+                          {/* Step badge */}
+                          <div
+                            className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full font-mono text-[10px] font-bold transition-all duration-300"
+                            style={{
+                              background: isLit ? node.accentColor : "rgba(255,255,255,0.06)",
+                              color: isLit ? "#000" : "#4B5563",
+                            }}
+                          >
+                            {i + 1}
+                          </div>
+                        </motion.div>
 
-                      {/* Label */}
-                      <div className="text-center">
-                        <div
-                          className="text-[11px] font-semibold leading-none transition-colors duration-300 md:text-xs"
-                          style={{
-                            color: isLit ? "rgba(255,255,255,0.9)" : "#374151",
-                          }}
-                        >
-                          {node.label}
+                        {/* Label */}
+                        <div className="text-center">
+                          <div
+                            className="text-[11px] font-semibold leading-none transition-colors duration-300 md:text-xs"
+                            style={{ color: isLit ? "rgba(255,255,255,0.9)" : "#374151" }}
+                          >
+                            {node.label}
+                          </div>
+                          <div
+                            className="mt-1 hidden text-[10px] leading-none transition-colors duration-300 md:block"
+                            style={{
+                              color: isLit ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.1)",
+                            }}
+                          >
+                            {node.subtitle}
+                          </div>
                         </div>
-                        <div
-                          className="mt-1 hidden text-[10px] leading-none transition-colors duration-300 md:block"
-                          style={{
-                            color: isLit
-                              ? "rgba(255,255,255,0.35)"
-                              : "rgba(255,255,255,0.1)",
-                          }}
-                        >
-                          {node.subtitle}
-                        </div>
-                      </div>
-                    </button>
+                      </button>
+                    </div>
 
-                    {/* Connector line */}
+                    {/* Connector — only between nodes */}
                     {i < nodes.length - 1 && (
-                      <div className="relative mx-1.5 h-px flex-1 md:mx-3">
-                        {/* Base line */}
+                      <div className="relative h-px w-8 shrink-0 md:w-14">
                         <div
                           className="h-full transition-all duration-500"
                           style={{
@@ -414,7 +407,7 @@ export function N8nFlowDemo({ lang }: N8nFlowDemoProps) {
                             }}
                             initial={{ left: "0%" }}
                             animate={{ left: "100%" }}
-                            transition={{ duration: 1.9, ease: "easeInOut" }}
+                            transition={{ duration: 3.2, ease: "easeInOut" }}
                           />
                         )}
                       </div>

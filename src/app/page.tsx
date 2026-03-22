@@ -12,10 +12,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ROICalculator } from "@/components/roi-calculator";
 import { N8nFlowDemo } from "@/components/n8n-flow-demo";
+import { ToolsMarquee } from "@/components/tools-marquee";
+import { VideoDemo } from "@/components/video-demo";
 import {
   MessageSquare,
   Workflow,
@@ -36,6 +35,10 @@ import {
   X,
   Plus,
   Minus,
+  Globe,
+  ShoppingBag,
+  LayoutDashboard,
+  Code2,
 } from "lucide-react";
 
 type Lang = "es" | "en";
@@ -46,18 +49,18 @@ const navLinksEs = [
   { href: "#solucion", label: "Solución" },
   { href: "#servicios", label: "Servicios" },
   { href: "#proceso", label: "Proceso" },
-  { href: "#calculadora", label: "Ahorro" },
+  { href: "/desarrolloweb", label: "Web" },
   { href: "#faq", label: "FAQ" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/contact", label: "Contacto" },
 ];
 
 const navLinksEn = [
   { href: "#solucion", label: "Solution" },
   { href: "#servicios", label: "Services" },
   { href: "#proceso", label: "Process" },
-  { href: "#calculadora", label: "Savings" },
+  { href: "/desarrolloweb", label: "Web" },
   { href: "#faq", label: "FAQ" },
-  { href: "#contacto", label: "Contact" },
+  { href: "/contact", label: "Contact" },
 ];
 
 // ─── Stats ─────────────────────────────────────────────────────────────────
@@ -368,13 +371,92 @@ const faqsEn = [
   },
 ];
 
+// ─── Testimonials ──────────────────────────────────────────────────────────
+
+const testimonialsEs = [
+  {
+    metric: "12 h/semana",
+    metricLabel: "recuperadas",
+    quote:
+      "Antes dedicábamos horas a recopilar datos de distintos sistemas. Ahora el reporte aparece solo en el inbox del lunes a las 8 AM. El equipo no puede creer que antes lo hacíamos a mano.",
+    name: "Martina Álvarez",
+    role: "COO",
+    company: "Agencia Grow",
+    tag: "Servicios profesionales",
+    color: "#C6FF00",
+    initials: "MA",
+  },
+  {
+    metric: "65%",
+    metricLabel: "de tickets sin intervención humana",
+    quote:
+      "El chatbot responde mejor que algunos de nuestros agentes en devoluciones y estado de pedidos. Y nunca se cansa, no tiene mal día, no pide vacaciones.",
+    name: "Diego Fernández",
+    role: "Fundador",
+    company: "Tienda Orbital",
+    tag: "E-commerce",
+    color: "#A78BFA",
+    initials: "DF",
+  },
+  {
+    metric: "10 días",
+    metricLabel: "de auditoría a producción",
+    quote:
+      "Esperaba meses de integración. En dos semanas teníamos el CRM conectado al sistema de facturación y el equipo de ventas dejó de reentrar datos. Fue un antes y un después.",
+    name: "Rodrigo Peralta",
+    role: "Director Comercial",
+    company: "Consulta B2B",
+    tag: "B2B",
+    color: "#38BDF8",
+    initials: "RP",
+  },
+];
+
+const testimonialsEn = [
+  {
+    metric: "12 hrs/week",
+    metricLabel: "recovered",
+    quote:
+      "We used to spend hours gathering data from different systems. Now the report just shows up in the inbox every Monday at 8 AM. The team can't believe we used to do it by hand.",
+    name: "Martina Álvarez",
+    role: "COO",
+    company: "Grow Agency",
+    tag: "Professional services",
+    color: "#C6FF00",
+    initials: "MA",
+  },
+  {
+    metric: "65%",
+    metricLabel: "of tickets without human touch",
+    quote:
+      "The chatbot handles returns and order status better than some of our agents. And it never gets tired, never has a bad day, never takes vacation.",
+    name: "Diego Fernández",
+    role: "Founder",
+    company: "Orbital Store",
+    tag: "E-commerce",
+    color: "#A78BFA",
+    initials: "DF",
+  },
+  {
+    metric: "10 days",
+    metricLabel: "from audit to production",
+    quote:
+      "I was expecting months of integration work. In two weeks we had the CRM connected to the billing system and the sales team stopped re-entering data. It was a before and after.",
+    name: "Rodrigo Peralta",
+    role: "Commercial Director",
+    company: "Consulta B2B",
+    tag: "B2B",
+    color: "#38BDF8",
+    initials: "RP",
+  },
+];
+
 // ─── Component ─────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("es");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [submitted, setSubmitted] = useState(false);
 
   const navLinks = lang === "es" ? navLinksEs : navLinksEn;
   const stats = lang === "es" ? statsEs : statsEn;
@@ -383,40 +465,38 @@ export default function Home() {
   const processSteps = lang === "es" ? processStepsEs : processStepsEn;
   const useCases = lang === "es" ? useCasesEs : useCasesEn;
   const faqs = lang === "es" ? faqsEs : faqsEn;
+  const testimonials = lang === "es" ? testimonialsEs : testimonialsEn;
 
   return (
     <div className="min-h-screen text-white">
 
       {/* ── Navbar ── */}
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-surface/90 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <nav className="mx-auto grid h-16 max-w-6xl grid-cols-3 items-center px-6">
+          {/* Left — logo */}
           <Link
             href="/"
-            className="logo-text flex items-center gap-2 text-2xl font-bold tracking-tight text-white transition-opacity hover:opacity-90"
+            className="logo-text justify-self-start text-2xl font-bold tracking-tight text-white transition-opacity hover:opacity-90"
           >
-            <Image
-              src="/logo.png"
-              alt="SAM-AI"
-              width={32}
-              height={32}
-              className="h-8 w-8"
-            />
             SAM-<span className="text-electric-volt">AI</span>
           </Link>
 
-          {/* Desktop */}
-          <div className="hidden items-center gap-4 md:flex">
-            <div className="flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-text-muted transition-colors hover:text-white"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+          {/* Center — nav links */}
+          <div className="hidden items-center justify-center gap-8 md:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-text-muted transition-colors hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <div className="md:hidden" />
+
+          {/* Right — language + CTA */}
+          <div className="hidden items-center justify-end gap-3 md:flex">
             <Button
               variant="ghost"
               size="sm"
@@ -433,14 +513,14 @@ export default function Home() {
               className="border-electric-volt/50 bg-transparent text-electric-volt hover:bg-electric-volt/10 hover:border-electric-volt hover:text-electric-volt"
               asChild
             >
-              <Link href="#contacto">
+              <Link href="/contact">
                 {lang === "es" ? "Agendar demo" : "Book demo"}
               </Link>
             </Button>
           </div>
 
           {/* Mobile controls */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center justify-end gap-2 md:hidden">
             <Button
               variant="ghost"
               size="sm"
@@ -488,7 +568,7 @@ export default function Home() {
                     className="w-full bg-electric-volt font-semibold text-black hover:bg-electric-volt/95"
                     asChild
                   >
-                    <Link href="#contacto" onClick={() => setMobileOpen(false)}>
+                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
                       {lang === "es" ? "Agendar demo" : "Book demo"}
                     </Link>
                   </Button>
@@ -550,7 +630,7 @@ export default function Home() {
               className="w-full bg-electric-volt px-8 font-semibold text-black shadow-[0_0_24px_rgba(198,255,0,0.3)] transition-all hover:scale-[1.02] hover:bg-electric-volt/95 hover:shadow-[0_0_32px_rgba(198,255,0,0.4)] sm:w-auto"
               asChild
             >
-              <Link href="#contacto">
+              <Link href="/contact">
                 {lang === "es" ? "Iniciar auditoría gratuita" : "Start free audit"}
                 <ArrowRight className="size-4" />
               </Link>
@@ -561,8 +641,8 @@ export default function Home() {
               className="w-full text-text-muted hover:bg-white/5 hover:text-white sm:w-auto"
               asChild
             >
-              <Link href="#calculadora">
-                {lang === "es" ? "Ver cuánto podés ahorrar" : "See how much you can save"}
+              <Link href="/desarrolloweb">
+                {lang === "es" ? "Ver servicios web" : "See web services"}
               </Link>
             </Button>
           </motion.div>
@@ -608,6 +688,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Tools Marquee ── */}
+      <ToolsMarquee lang={lang} />
 
       {/* ── Problema → Solución ── */}
       <section id="solucion" className="px-6 py-28">
@@ -804,6 +887,11 @@ export default function Home() {
         <N8nFlowDemo lang={lang} />
       </section>
 
+      {/* ── Video Demo ── */}
+      <section className="border-t border-white/5 px-6 py-28">
+        <VideoDemo lang={lang} />
+      </section>
+
       {/* ── Proceso ── */}
       <section
         id="proceso"
@@ -855,31 +943,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── ROI Calculator ── */}
-      <section id="calculadora" className="px-6 py-28">
-        <div className="mx-auto max-w-xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center"
-          >
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
-              {lang === "es" ? "Calculadora de ahorro" : "Savings calculator"}
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              {lang === "es" ? "¿Cuánto podés ahorrar?" : "How much can you save?"}
-            </h2>
-            <p className="mx-auto mt-4 max-w-lg text-text-muted">
-              {lang === "es"
-                ? "Estimá el costo de oportunidad de las horas que tu equipo dedica a tareas manuales."
-                : "Estimate the opportunity cost of the hours your team spends on manual tasks."}
-            </p>
-          </motion.div>
-          <ROICalculator lang={lang} />
         </div>
       </section>
 
@@ -939,6 +1002,178 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Testimonials ── */}
+      <section className="px-6 py-28">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 text-center"
+          >
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
+              {lang === "es" ? "Lo que dicen nuestros clientes" : "What our clients say"}
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+              {lang === "es"
+                ? "Resultados reales, voces reales"
+                : "Real results, real voices"}
+            </h2>
+          </motion.div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex flex-col rounded-2xl border bg-black/40 p-7 backdrop-blur-xl"
+                style={{ borderColor: `${t.color}20` }}
+              >
+                {/* Metric — the result is the hero */}
+                <div
+                  className="mb-5 inline-flex flex-col rounded-xl border p-4"
+                  style={{ background: `${t.color}08`, borderColor: `${t.color}20` }}
+                >
+                  <span
+                    className="font-mono text-3xl font-bold leading-none tracking-tight"
+                    style={{ color: t.color }}
+                  >
+                    {t.metric}
+                  </span>
+                  <span className="mt-1 text-xs text-white/40">{t.metricLabel}</span>
+                </div>
+
+                {/* Quote */}
+                <p className="flex-1 text-sm leading-relaxed text-text-muted">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+
+                {/* Person */}
+                <div className="mt-6 flex items-center gap-3 border-t pt-5" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                  <div
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                    style={{ background: `${t.color}20`, color: t.color }}
+                  >
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{t.name}</p>
+                    <p className="text-xs text-white/35">{t.role} · {t.company}</p>
+                  </div>
+                  <span
+                    className="ml-auto shrink-0 rounded-full px-2.5 py-1 text-[10px] font-medium"
+                    style={{ background: `${t.color}10`, color: t.color }}
+                  >
+                    {t.tag}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Web Dev Promo ── */}
+      <section className="border-t border-white/5 px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-3xl border border-white/8 bg-white/[0.02] p-8 md:p-12"
+          >
+            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-14">
+              {/* Left — text */}
+              <div className="lg:w-80 shrink-0">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-white/30">
+                  {lang === "es" ? "También somos una agencia web" : "We also build websites"}
+                </p>
+                <h2 className="mb-4 text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+                  {lang === "es"
+                    ? "Diseño y desarrollo web moderno"
+                    : "Modern web design & development"}
+                </h2>
+                <p className="mb-8 text-sm leading-relaxed text-text-muted">
+                  {lang === "es"
+                    ? "Landing pages, e-commerce, portales y apps. Solo web, solo automatización, o los dos juntos. Vos elegís."
+                    : "Landing pages, e-commerce, portals and apps. Web only, automation only, or both together. Your choice."}
+                </p>
+                <Button
+                  variant="outline"
+                  className="border-white/20 bg-transparent text-white hover:bg-white/8 hover:border-white/30 hover:text-white"
+                  asChild
+                >
+                  <Link href="/desarrolloweb">
+                    {lang === "es" ? "Ver servicios web" : "See web services"}
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </Button>
+              </div>
+
+              {/* Right — 3 service mini-cards */}
+              <div className="grid grid-cols-1 gap-3 flex-1 sm:grid-cols-3">
+                {[
+                  {
+                    icon: Globe,
+                    label: lang === "es" ? "Landing Pages" : "Landing Pages",
+                    desc: lang === "es" ? "Conversión y velocidad" : "Conversion & speed",
+                    features: lang === "es"
+                      ? ["SEO técnico", "Formularios → CRM"]
+                      : ["Technical SEO", "Forms → CRM"],
+                    accent: "#C6FF00",
+                  },
+                  {
+                    icon: ShoppingBag,
+                    label: lang === "es" ? "E-commerce" : "Online Store",
+                    desc: lang === "es" ? "Ventas 24/7 automatizadas" : "Automated 24/7 sales",
+                    features: lang === "es"
+                      ? ["Pagos integrados", "Stock sincronizado"]
+                      : ["Integrated payments", "Stock sync"],
+                    accent: "#818CF8",
+                  },
+                  {
+                    icon: LayoutDashboard,
+                    label: lang === "es" ? "Portales y Apps" : "Portals & Apps",
+                    desc: lang === "es" ? "A medida para tu negocio" : "Tailored to your business",
+                    features: lang === "es"
+                      ? ["Auth + roles", "Datos en tiempo real"]
+                      : ["Auth + roles", "Real-time data"],
+                    accent: "#38BDF8",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="group rounded-2xl border border-white/8 bg-white/[0.03] p-5 hover:border-white/14 hover:bg-white/[0.05] transition-all duration-200"
+                  >
+                    <div
+                      className="mb-3 inline-flex size-9 items-center justify-center rounded-xl border"
+                      style={{ background: item.accent + "15", borderColor: item.accent + "25" }}
+                    >
+                      <item.icon className="size-4" style={{ color: item.accent }} />
+                    </div>
+                    <p className="mb-1 text-sm font-semibold text-white">{item.label}</p>
+                    <p className="mb-3 text-xs text-white/40">{item.desc}</p>
+                    <ul className="space-y-1.5">
+                      {item.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-xs text-white/35">
+                          <span
+                            className="size-1 rounded-full shrink-0"
+                            style={{ background: item.accent + "90" }}
+                          />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1028,7 +1263,7 @@ export default function Home() {
                 className="bg-electric-volt px-8 font-semibold text-black shadow-[0_0_24px_rgba(198,255,0,0.3)] hover:bg-electric-volt/95 hover:shadow-[0_0_32px_rgba(198,255,0,0.4)]"
                 asChild
               >
-                <Link href="#contacto">
+                <Link href="/contact">
                   {lang === "es" ? "Pedir auditoría gratuita" : "Request free audit"}
                   <ArrowRight className="size-4" />
                 </Link>
@@ -1038,137 +1273,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Contacto ── */}
-      <section id="contacto" className="px-6 py-28">
-        <div className="mx-auto max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-14 text-center"
-          >
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
-              {lang === "es" ? "Contacto" : "Contact"}
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              {lang === "es" ? "Contanos tu proyecto" : "Tell us about your project"}
-            </h2>
-            <p className="mt-4 text-text-muted">
-              {lang === "es"
-                ? "Te respondemos en menos de 24 horas hábiles."
-                : "We'll get back to you within 24 business hours."}
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            {submitted ? (
-              <div className="flex flex-col items-center gap-4 rounded-2xl border border-electric-volt/20 bg-electric-volt/5 p-12 text-center">
-                <CheckCircle2 className="size-12 text-electric-volt" />
-                <h3 className="text-xl font-semibold text-white">
-                  {lang === "es" ? "¡Mensaje enviado!" : "Message sent!"}
-                </h3>
-                <p className="text-text-muted">
-                  {lang === "es"
-                    ? "Te vamos a responder en menos de 24 horas hábiles."
-                    : "We'll get back to you within 24 business hours."}
-                </p>
-              </div>
-            ) : (
-              <form
-                className="space-y-5 rounded-2xl border border-white/10 bg-black/40 p-8 backdrop-blur-xl"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSubmitted(true);
-                }}
-              >
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-text-muted">
-                      {lang === "es" ? "Nombre" : "Name"}
-                    </Label>
-                    <Input
-                      id="name"
-                      type="text"
-                      required
-                      placeholder={lang === "es" ? "Tu nombre" : "Your name"}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-white/40 focus-visible:ring-electric-volt"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="company" className="text-text-muted">
-                      {lang === "es" ? "Empresa" : "Company"}
-                      <span className="ml-1 text-xs text-text-muted/50">
-                        {lang === "es" ? "(opcional)" : "(optional)"}
-                      </span>
-                    </Label>
-                    <Input
-                      id="company"
-                      type="text"
-                      placeholder={lang === "es" ? "Nombre de la empresa" : "Company name"}
-                      className="border-white/10 bg-white/5 text-white placeholder:text-white/40 focus-visible:ring-electric-volt"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-text-muted">
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    placeholder={lang === "es" ? "tu@empresa.com" : "you@company.com"}
-                    className="border-white/10 bg-white/5 text-white placeholder:text-white/40 focus-visible:ring-electric-volt"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-text-muted">
-                    {lang === "es"
-                      ? "¿Qué te gustaría automatizar?"
-                      : "What would you like to automate?"}
-                  </Label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={4}
-                    placeholder={
-                      lang === "es"
-                        ? "Describí brevemente el proceso que querés automatizar..."
-                        : "Briefly describe the process you'd like to automate..."
-                    }
-                    className="flex w-full resize-none rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-electric-volt"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-electric-volt font-semibold text-black hover:bg-electric-volt/90"
-                >
-                  {lang === "es" ? "Enviar mensaje" : "Send message"}
-                  <ArrowRight className="size-4" />
-                </Button>
-              </form>
-            )}
-          </motion.div>
-        </div>
-      </section>
-
       {/* ── Footer ── */}
       <footer className="border-t border-white/5 bg-white/[0.02] px-6 py-14">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
           <Link
             href="/"
-            className="logo-text flex items-center gap-2 text-xl font-bold text-white"
+            className="logo-text text-xl font-bold text-white"
           >
-            <Image
-              src="/logo.png"
-              alt="SAM-AI"
-              width={28}
-              height={28}
-              className="h-7 w-7"
-            />
             SAM-<span className="text-electric-volt">AI</span>
           </Link>
           <p className="max-w-md text-sm text-text-muted">
