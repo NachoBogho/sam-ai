@@ -29,10 +29,6 @@ import {
   FileText,
   Wrench,
   Headphones,
-  Receipt,
-  BarChart3,
-  Menu,
-  X,
   Plus,
   Minus,
   Globe,
@@ -40,28 +36,9 @@ import {
   LayoutDashboard,
   Code2,
 } from "lucide-react";
+import { SiteHeader } from "@/components/site-header";
 
 type Lang = "es" | "en";
-
-// ─── Nav ───────────────────────────────────────────────────────────────────
-
-const navLinksEs = [
-  { href: "#solucion", label: "Solución" },
-  { href: "#servicios", label: "Servicios" },
-  { href: "#proceso", label: "Proceso" },
-  { href: "/desarrolloweb", label: "Web" },
-  { href: "#faq", label: "FAQ" },
-  { href: "/contact", label: "Contacto" },
-];
-
-const navLinksEn = [
-  { href: "#solucion", label: "Solution" },
-  { href: "#servicios", label: "Services" },
-  { href: "#proceso", label: "Process" },
-  { href: "/desarrolloweb", label: "Web" },
-  { href: "#faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-];
 
 // ─── Stats ─────────────────────────────────────────────────────────────────
 
@@ -235,86 +212,6 @@ const processStepsEn = [
   },
 ];
 
-// ─── Use Cases ─────────────────────────────────────────────────────────────
-
-const useCasesEs = [
-  {
-    icon: Receipt,
-    tag: "Servicios profesionales",
-    title: "CRM → Facturación sin fricción",
-    description:
-      "Una agencia cerraba tratos en su CRM y reingresaba los mismos datos en el sistema de facturación a mano. Automatizamos ese puente completo.",
-    metrics: [
-      "12 h/semana ahorradas",
-      "Cero errores de transcripción",
-      "En producción en 10 días",
-    ],
-  },
-  {
-    icon: MessageSquare,
-    tag: "E-commerce",
-    title: "Soporte al cliente 24/7",
-    description:
-      "Un e-commerce recibía las mismas 30 preguntas a diario. Entrenamos un chatbot con su base de conocimiento e integramos con WhatsApp y email.",
-    metrics: [
-      "65% de tickets sin intervención humana",
-      "Tiempo de respuesta < 30 s",
-      "Equipo libre para casos complejos",
-    ],
-  },
-  {
-    icon: BarChart3,
-    tag: "Operaciones B2B",
-    title: "Reportes de ventas automáticos",
-    description:
-      "El gerente de ventas dedicaba 3 horas cada lunes a consolidar datos de cuatro herramientas. Ahora recibe el reporte listo en su inbox a las 8 AM.",
-    metrics: [
-      "3 h/semana devueltas",
-      "Datos de 4 fuentes unificados",
-      "Cero retrasos ni olvidos",
-    ],
-  },
-];
-
-const useCasesEn = [
-  {
-    icon: Receipt,
-    tag: "Professional services",
-    title: "CRM → Billing without friction",
-    description:
-      "An agency was closing deals in their CRM and then manually re-entering the same data into their billing system. We automated that entire bridge.",
-    metrics: [
-      "12 hrs/week saved",
-      "Zero transcription errors",
-      "Live in 10 days",
-    ],
-  },
-  {
-    icon: MessageSquare,
-    tag: "E-commerce",
-    title: "24/7 customer support",
-    description:
-      "An e-commerce store got the same 30 questions every day. We trained a chatbot on their knowledge base and connected it to WhatsApp and email.",
-    metrics: [
-      "65% of tickets without human touch",
-      "Response in < 30s",
-      "Team free for complex cases",
-    ],
-  },
-  {
-    icon: BarChart3,
-    tag: "B2B operations",
-    title: "Automated sales reports",
-    description:
-      "The sales manager spent 3 hours every Monday consolidating data from four tools. Now a finished report lands in their inbox every Monday at 8 AM.",
-    metrics: [
-      "3 hrs/week returned",
-      "Data from 4 sources unified",
-      "Zero delays or missed reports",
-    ],
-  },
-];
-
 // ─── FAQs ──────────────────────────────────────────────────────────────────
 
 const faqsEs = [
@@ -371,213 +268,26 @@ const faqsEn = [
   },
 ];
 
-// ─── Testimonials ──────────────────────────────────────────────────────────
-
-const testimonialsEs = [
-  {
-    metric: "12 h/semana",
-    metricLabel: "recuperadas",
-    quote:
-      "Antes dedicábamos horas a recopilar datos de distintos sistemas. Ahora el reporte aparece solo en el inbox del lunes a las 8 AM. El equipo no puede creer que antes lo hacíamos a mano.",
-    name: "Martina Álvarez",
-    role: "COO",
-    company: "Agencia Grow",
-    tag: "Servicios profesionales",
-    color: "#C6FF00",
-    initials: "MA",
-  },
-  {
-    metric: "65%",
-    metricLabel: "de tickets sin intervención humana",
-    quote:
-      "El chatbot responde mejor que algunos de nuestros agentes en devoluciones y estado de pedidos. Y nunca se cansa, no tiene mal día, no pide vacaciones.",
-    name: "Diego Fernández",
-    role: "Fundador",
-    company: "Tienda Orbital",
-    tag: "E-commerce",
-    color: "#A78BFA",
-    initials: "DF",
-  },
-  {
-    metric: "10 días",
-    metricLabel: "de auditoría a producción",
-    quote:
-      "Esperaba meses de integración. En dos semanas teníamos el CRM conectado al sistema de facturación y el equipo de ventas dejó de reentrar datos. Fue un antes y un después.",
-    name: "Rodrigo Peralta",
-    role: "Director Comercial",
-    company: "Consulta B2B",
-    tag: "B2B",
-    color: "#38BDF8",
-    initials: "RP",
-  },
-];
-
-const testimonialsEn = [
-  {
-    metric: "12 hrs/week",
-    metricLabel: "recovered",
-    quote:
-      "We used to spend hours gathering data from different systems. Now the report just shows up in the inbox every Monday at 8 AM. The team can't believe we used to do it by hand.",
-    name: "Martina Álvarez",
-    role: "COO",
-    company: "Grow Agency",
-    tag: "Professional services",
-    color: "#C6FF00",
-    initials: "MA",
-  },
-  {
-    metric: "65%",
-    metricLabel: "of tickets without human touch",
-    quote:
-      "The chatbot handles returns and order status better than some of our agents. And it never gets tired, never has a bad day, never takes vacation.",
-    name: "Diego Fernández",
-    role: "Founder",
-    company: "Orbital Store",
-    tag: "E-commerce",
-    color: "#A78BFA",
-    initials: "DF",
-  },
-  {
-    metric: "10 days",
-    metricLabel: "from audit to production",
-    quote:
-      "I was expecting months of integration work. In two weeks we had the CRM connected to the billing system and the sales team stopped re-entering data. It was a before and after.",
-    name: "Rodrigo Peralta",
-    role: "Commercial Director",
-    company: "Consulta B2B",
-    tag: "B2B",
-    color: "#38BDF8",
-    initials: "RP",
-  },
-];
-
 // ─── Component ─────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("es");
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const navLinks = lang === "es" ? navLinksEs : navLinksEn;
   const stats = lang === "es" ? statsEs : statsEn;
   const benefits = lang === "es" ? benefitsEs : benefitsEn;
   const services = lang === "es" ? servicesEs : servicesEn;
   const processSteps = lang === "es" ? processStepsEs : processStepsEn;
-  const useCases = lang === "es" ? useCasesEs : useCasesEn;
   const faqs = lang === "es" ? faqsEs : faqsEn;
-  const testimonials = lang === "es" ? testimonialsEs : testimonialsEn;
 
   return (
     <div className="min-h-screen text-white">
 
-      {/* ── Navbar ── */}
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-surface/90 backdrop-blur-xl">
-        <nav className="mx-auto grid h-16 max-w-6xl grid-cols-3 items-center px-6">
-          {/* Left — logo */}
-          <Link
-            href="/"
-            className="logo-text justify-self-start text-2xl font-bold tracking-tight text-white transition-opacity hover:opacity-90"
-          >
-            SAM-<span className="text-electric-volt">AI</span>
-          </Link>
-
-          {/* Center — nav links */}
-          <div className="hidden items-center justify-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-text-muted transition-colors hover:text-white"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-          <div className="md:hidden" />
-
-          {/* Right — language + CTA */}
-          <div className="hidden items-center justify-end gap-3 md:flex">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-text-muted hover:bg-white/10"
-              onClick={() => setLang(lang === "es" ? "en" : "es")}
-            >
-              <span className={lang === "es" ? "text-electric-volt" : "text-text-muted"}>ES</span>
-              <span className="mx-1 text-text-muted/50">/</span>
-              <span className={lang === "en" ? "text-electric-volt" : "text-text-muted"}>EN</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-electric-volt/50 bg-transparent text-electric-volt hover:bg-electric-volt/10 hover:border-electric-volt hover:text-electric-volt"
-              asChild
-            >
-              <Link href="/contact">
-                {lang === "es" ? "Agendar demo" : "Book demo"}
-              </Link>
-            </Button>
-          </div>
-
-          {/* Mobile controls */}
-          <div className="flex items-center justify-end gap-2 md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="rounded-full border border-white/10 bg-white/5 px-3 text-xs font-semibold text-text-muted hover:bg-white/10"
-              onClick={() => setLang(lang === "es" ? "en" : "es")}
-            >
-              <span className={lang === "es" ? "text-electric-volt" : "text-text-muted"}>ES</span>
-              <span className="mx-1 text-text-muted/50">/</span>
-              <span className={lang === "en" ? "text-electric-volt" : "text-text-muted"}>EN</span>
-            </Button>
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-              className="rounded-md p-2 text-text-muted transition-colors hover:text-white"
-            >
-              {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
-          </div>
-        </nav>
-
-        {/* Mobile dropdown */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden border-t border-white/5 bg-surface/98 backdrop-blur-xl md:hidden"
-            >
-              <div className="flex flex-col px-6 py-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="border-b border-white/5 py-3.5 text-base font-medium text-text-muted transition-colors hover:text-white last:border-0"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-                <div className="mt-4 pt-2">
-                  <Button
-                    size="sm"
-                    className="w-full bg-electric-volt font-semibold text-black hover:bg-electric-volt/95"
-                    asChild
-                  >
-                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
-                      {lang === "es" ? "Agendar demo" : "Book demo"}
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+      <SiteHeader
+        activePage="automation"
+        lang={lang}
+        onLangToggle={() => setLang(lang === "es" ? "en" : "es")}
+      />
 
       {/* ── Hero ── */}
       <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pb-20 pt-28 text-center">
@@ -946,138 +656,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Use Cases ── */}
-      <section className="border-t border-white/5 bg-white/[0.02] px-6 py-28">
-        <div className="mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-20 text-center"
-          >
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
-              {lang === "es" ? "Casos de uso" : "Use cases"}
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              {lang === "es"
-                ? "Automatizaciones reales, resultados reales"
-                : "Real automations, real results"}
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-text-muted">
-              {lang === "es"
-                ? "Ejemplos de flujos que implementamos para clientes en distintos sectores."
-                : "Examples of flows we've built for clients across different industries."}
-            </p>
-          </motion.div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {useCases.map((uc, i) => (
-              <motion.div
-                key={uc.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="rounded-2xl border border-white/10 bg-black/40 p-7 backdrop-blur-xl"
-              >
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="inline-flex rounded-xl border border-electric-volt/20 bg-electric-volt/10 p-2.5">
-                    <uc.icon className="size-5 text-electric-volt" />
-                  </div>
-                  <span className="rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-text-muted">
-                    {uc.tag}
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-white">{uc.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                  {uc.description}
-                </p>
-                <ul className="mt-5 space-y-2">
-                  {uc.metrics.map((m) => (
-                    <li key={m} className="flex items-center gap-2 text-sm text-text-muted">
-                      <CheckCircle2 className="size-3.5 shrink-0 text-electric-volt" />
-                      {m}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Testimonials ── */}
-      <section className="px-6 py-28">
-        <div className="mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-16 text-center"
-          >
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
-              {lang === "es" ? "Lo que dicen nuestros clientes" : "What our clients say"}
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              {lang === "es"
-                ? "Resultados reales, voces reales"
-                : "Real results, real voices"}
-            </h2>
-          </motion.div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex flex-col rounded-2xl border bg-black/40 p-7 backdrop-blur-xl"
-                style={{ borderColor: `${t.color}20` }}
-              >
-                {/* Metric — the result is the hero */}
-                <div
-                  className="mb-5 inline-flex flex-col rounded-xl border p-4"
-                  style={{ background: `${t.color}08`, borderColor: `${t.color}20` }}
-                >
-                  <span
-                    className="font-mono text-3xl font-bold leading-none tracking-tight"
-                    style={{ color: t.color }}
-                  >
-                    {t.metric}
-                  </span>
-                  <span className="mt-1 text-xs text-white/40">{t.metricLabel}</span>
-                </div>
-
-                {/* Quote */}
-                <p className="flex-1 text-sm leading-relaxed text-text-muted">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-
-                {/* Person */}
-                <div className="mt-6 flex items-center gap-3 border-t pt-5" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                  <div
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold"
-                    style={{ background: `${t.color}20`, color: t.color }}
-                  >
-                    {t.initials}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">{t.name}</p>
-                    <p className="text-xs text-white/35">{t.role} · {t.company}</p>
-                  </div>
-                  <span
-                    className="ml-auto shrink-0 rounded-full px-2.5 py-1 text-[10px] font-medium"
-                    style={{ background: `${t.color}10`, color: t.color }}
-                  >
-                    {t.tag}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Web Dev Promo ── */}
       <section className="border-t border-white/5 px-6 py-20">
         <div className="mx-auto max-w-6xl">
@@ -1288,7 +866,15 @@ export default function Home() {
               : "Solution Agent Manager — AI and automation with n8n for companies that want to win their time back."}
           </p>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            {navLinks.map((link) => (
+            {[
+              { href: "#solucion", label: lang === "es" ? "Solución" : "Solution" },
+              { href: "#servicios", label: lang === "es" ? "Servicios" : "Services" },
+              { href: "#proceso", label: lang === "es" ? "Proceso" : "Process" },
+              { href: "#faq", label: "FAQ" },
+              { href: "/desarrolloweb", label: "Web" },
+              { href: "/contacto", label: lang === "es" ? "Contacto" : "Contact" },
+              { href: "/agendar-demo", label: lang === "es" ? "Agendar demo" : "Book demo" },
+            ].map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

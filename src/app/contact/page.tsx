@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { SiteHeader } from "@/components/site-header";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -154,35 +155,19 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen text-white">
-      {/* ── Navbar ── */}
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-surface/90 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link
-            href="/"
-            className="logo-text text-2xl font-bold tracking-tight text-white transition-opacity hover:opacity-90"
-          >
-            SAM-<span className="text-electric-volt">AI</span>
-          </Link>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-text-muted hover:bg-white/10"
-            onClick={() => setLang(lang === "es" ? "en" : "es")}
-          >
-            <span className={lang === "es" ? "text-electric-volt" : "text-text-muted"}>ES</span>
-            <span className="mx-1 text-text-muted/50">/</span>
-            <span className={lang === "en" ? "text-electric-volt" : "text-text-muted"}>EN</span>
-          </Button>
-        </nav>
-      </header>
+      <SiteHeader
+        activePage="contact"
+        lang={lang}
+        onLangToggle={() => setLang(lang === "es" ? "en" : "es")}
+      />
 
       {/* ── Main ── */}
-      <main className="mx-auto min-h-screen max-w-5xl px-6 pb-24 pt-32">
+      <main className="mx-auto min-h-screen max-w-5xl px-6 pb-8 pt-24">
         {/* Back */}
         <motion.div initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
           <Link
             href="/"
-            className="mb-10 inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-white"
+            className="mb-6 inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-white"
           >
             <ArrowLeft className="size-4" />
             {isEs ? "Volver al inicio" : "Back to home"}
@@ -233,16 +218,16 @@ export default function ContactPage() {
                 <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
                   {isEs ? "Contacto" : "Contact"}
                 </p>
-                <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+                <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                   {isEs ? "Contanos qué necesitás" : "Tell us what you need"}
                 </h1>
-                <p className="mt-5 text-lg leading-relaxed text-text-muted">
+                <p className="mt-3 text-base leading-relaxed text-text-muted">
                   {isEs
                     ? "Elegí el servicio que más te interesa y nos ponemos en contacto. Sin compromiso."
                     : "Pick the service that interests you most and we'll get in touch. No commitment."}
                 </p>
 
-                <ul className="mt-10 space-y-4">
+                <ul className="mt-6 space-y-3">
                   {[
                     { icon: Clock, text: isEs ? "Respondemos en < 24 h hábiles" : "We reply in < 24 business hours" },
                     { icon: CheckCircle2, text: isEs ? "Recibís un mail de confirmación automático" : "You get an instant confirmation email" },
@@ -257,13 +242,13 @@ export default function ContactPage() {
                   ))}
                 </ul>
 
-                <div className="pointer-events-none mt-16 hidden h-px w-full bg-gradient-to-r from-electric-volt/20 via-electric-volt/5 to-transparent lg:block" />
+                <div className="pointer-events-none mt-8 hidden h-px w-full bg-gradient-to-r from-electric-volt/20 via-electric-volt/5 to-transparent lg:block" />
               </div>
 
               {/* ── Right: form ── */}
               <form
                 onSubmit={handleSubmit}
-                className="rounded-2xl border border-white/10 bg-black/40 p-7 backdrop-blur-xl md:p-9 space-y-6"
+                className="rounded-2xl border border-white/10 bg-black/40 p-5 backdrop-blur-xl md:p-7 space-y-4"
               >
                 {/* Step 1: service */}
                 <div className="space-y-3">
@@ -377,7 +362,7 @@ export default function ContactPage() {
                     id="message"
                     name="message"
                     required
-                    rows={4}
+                    rows={3}
                     value={form.message}
                     onChange={handleChange}
                     placeholder={

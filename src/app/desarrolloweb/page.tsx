@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { SiteHeader } from "@/components/site-header";
 import {
-  ArrowLeft,
   ArrowRight,
   Zap,
   Globe,
@@ -229,58 +229,7 @@ function BrowserMockup({ type, accent }: { type: string; accent: string }) {
 export default function DesarrolloWebPage() {
   return (
     <div className="min-h-screen text-white">
-      {/* ── Nav ── */}
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-surface/90 backdrop-blur-xl">
-        <nav className="mx-auto grid h-16 max-w-6xl grid-cols-3 items-center px-6">
-          {/* Left — logo */}
-          <Link
-            href="/"
-            className="logo-text justify-self-start text-2xl font-bold tracking-tight text-white transition-opacity hover:opacity-90"
-          >
-            SAM-<span className="text-electric-volt">AI</span>
-          </Link>
-
-          {/* Center — nav links */}
-          <div className="hidden items-center justify-center gap-7 md:flex">
-            {[
-              { href: "#proyectos", label: "Proyectos" },
-              { href: "#stack", label: "Stack" },
-              { href: "#proceso", label: "Proceso" },
-              { href: "/", label: "Automatización" },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-text-muted transition-colors hover:text-white"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-          <div className="md:hidden" />
-
-          {/* Right — CTA */}
-          <div className="flex items-center justify-end gap-3">
-            <Link
-              href="/"
-              className="hidden items-center gap-1.5 text-sm text-white/35 transition-colors hover:text-white/70 md:flex"
-            >
-              <ArrowLeft className="size-3.5" />
-              Inicio
-            </Link>
-            <Button
-              size="sm"
-              className="bg-electric-volt font-semibold text-black hover:bg-electric-volt/95"
-              asChild
-            >
-              <Link href="/contact">
-                Empezar proyecto
-                <ArrowRight className="size-3.5" />
-              </Link>
-            </Button>
-          </div>
-        </nav>
-      </header>
+      <SiteHeader activePage="web" />
 
       {/* ── Hero ── */}
       <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 pt-28 pb-20 text-center">

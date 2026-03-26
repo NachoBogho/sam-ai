@@ -17,10 +17,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/contact/`,
+      url: `${BASE_URL}/contacto/`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/agendar-demo/`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.8,
     },
   ];
 }
