@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -78,7 +78,7 @@ export function SiteHeader({ activePage, lang = "es", onLangToggle }: SiteHeader
           SAM-<span className="text-electric-volt">AI</span>
         </Link>
 
-        {/* Col 2 — nav links (solo desktop) */}
+        {/* Col 2 — nav links + Contacto (solo desktop) */}
         <div className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) =>
             item.pill ? (
@@ -99,6 +99,14 @@ export function SiteHeader({ activePage, lang = "es", onLangToggle }: SiteHeader
               </Link>
             )
           )}
+          {showContacto && (
+            <Link
+              href="/contacto"
+              className="rounded-md px-3 py-1.5 text-sm font-medium text-white/45 transition-colors hover:bg-white/5 hover:text-white/90"
+            >
+              {isEs ? "Contacto" : "Contact"}
+            </Link>
+          )}
         </div>
 
         {/* Col 3 — CTAs en desktop / hamburger en mobile */}
@@ -115,16 +123,17 @@ export function SiteHeader({ activePage, lang = "es", onLangToggle }: SiteHeader
               <span className={lang === "en" ? "text-white/80" : "text-white/35"}>EN</span>
             </button>
           )}
-          {showContacto && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden text-white/45 hover:bg-white/5 hover:text-white/80 lg:flex"
-              asChild
-            >
-              <Link href="/contacto">{isEs ? "Contacto" : "Contact"}</Link>
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hidden items-center gap-1.5 text-white/35 hover:bg-white/5 hover:text-white/70 lg:flex"
+            asChild
+          >
+            <Link href="/portal">
+              <LogIn className="size-3.5" />
+              Portal
+            </Link>
+          </Button>
           {showDemo && (
             <Button
               size="sm"
@@ -190,19 +199,27 @@ export function SiteHeader({ activePage, lang = "es", onLangToggle }: SiteHeader
                   </Link>
                 )
               )}
+              {showContacto && (
+                <Link
+                  href="/contacto"
+                  onClick={() => setMobileOpen(false)}
+                  className="border-b border-white/5 py-3.5 text-base font-medium text-white/45 transition-colors hover:text-white/90 last:border-0"
+                >
+                  {isEs ? "Contacto" : "Contact"}
+                </Link>
+              )}
               <div className="mt-4 flex flex-col gap-2 pt-2">
-                {showContacto && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-white/10 bg-transparent text-white/45 hover:bg-white/5 hover:text-white/80"
-                    asChild
-                  >
-                    <Link href="/contacto" onClick={() => setMobileOpen(false)}>
-                      {isEs ? "Contacto" : "Contact"}
-                    </Link>
-                  </Button>
-                )}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full border-white/10 bg-transparent text-white/45 hover:bg-white/5 hover:text-white/80"
+                  asChild
+                >
+                  <Link href="/portal" onClick={() => setMobileOpen(false)} className="flex items-center gap-1.5">
+                    <LogIn className="size-3.5" />
+                    Portal
+                  </Link>
+                </Button>
                 {showDemo && (
                   <Button
                     size="sm"

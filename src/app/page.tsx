@@ -35,6 +35,8 @@ import {
   ShoppingBag,
   LayoutDashboard,
   Code2,
+  BarChart3,
+  Zap,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 
@@ -652,6 +654,218 @@ export default function Home() {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Portal de clientes ── */}
+      <section id="portal" className="border-t border-white/5 bg-white/[0.02] px-6 py-28">
+        <div className="mx-auto max-w-6xl">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16 text-center"
+          >
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-electric-volt">
+              {lang === "es" ? "Portal de clientes" : "Client portal"}
+            </p>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              {lang === "es"
+                ? "Tu negocio en tiempo real, siempre visible"
+                : "Your business in real time, always visible"}
+            </h2>
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-text-muted">
+              {lang === "es"
+                ? "Cada cliente tiene acceso a su propio panel donde puede ver en tiempo real sus automatizaciones activas, métricas del mes y chatbots. Sin preguntar, sin esperar reportes."
+                : "Every client gets their own panel where they can see active automations, monthly metrics, and chatbots in real time. No asking, no waiting for reports."}
+            </p>
+          </motion.div>
+
+          {/* 2-column layout */}
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            {/* Left — feature list */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col gap-8"
+            >
+              {/* Feature 1 */}
+              <div className="flex gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-electric-volt/20 bg-electric-volt/5">
+                  <BarChart3 className="h-5 w-5 text-electric-volt" />
+                </div>
+                <div>
+                  <h3 className="mb-1 font-semibold text-white">
+                    {lang === "es" ? "Métricas automáticas" : "Automatic metrics"}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-text-muted">
+                    {lang === "es"
+                      ? "Mensajes, leads, ejecuciones y horas ahorradas se actualizan solos cada vez que ocurre un evento. Vía webhooks desde n8n."
+                      : "Messages, leads, executions and hours saved update automatically on every event via n8n webhooks."}
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 2 */}
+              <div className="flex gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-electric-volt/20 bg-electric-volt/5">
+                  <Zap className="h-5 w-5 text-electric-volt" />
+                </div>
+                <div>
+                  <h3 className="mb-1 font-semibold text-white">
+                    {lang === "es" ? "Estado de automatizaciones" : "Automation status"}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-text-muted">
+                    {lang === "es"
+                      ? "El cliente ve en tiempo real si sus flujos están activos, pausados o con errores. Ejecutado cuántas veces, tiempo promedio, último run."
+                      : "Clients see in real time if their flows are active, paused, or erroring. How many executions, average time, last run."}
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="flex gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-electric-volt/20 bg-electric-volt/5">
+                  <MessageSquare className="h-5 w-5 text-electric-volt" />
+                </div>
+                <div>
+                  <h3 className="mb-1 font-semibold text-white">
+                    {lang === "es" ? "Chatbots conectados" : "Connected chatbots"}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-text-muted">
+                    {lang === "es"
+                      ? "Conversaciones, tasa de resolución y leads capturados por cada canal. Todo en el mismo lugar."
+                      : "Conversations, resolution rate, and captured leads per channel. All in one place."}
+                  </p>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="pt-2">
+                <Link href="/portal">
+                  <Button
+                    variant="ghost"
+                    className="border border-white/15 px-5 py-2 text-sm font-medium text-white hover:border-electric-volt/40 hover:text-electric-volt"
+                  >
+                    {lang === "es" ? "Ver un demo del portal" : "See a portal demo"}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Right — portal mockup */}
+            <motion.div
+              initial={{ opacity: 0, x: 32 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex justify-center lg:justify-end"
+            >
+              <div
+                className="w-full max-w-md overflow-hidden rounded-2xl border border-white/10 shadow-[0_0_80px_rgba(198,255,0,0.07)]"
+                style={{ transform: "perspective(1000px) rotateX(2deg) rotateY(-4deg)" }}
+              >
+                {/* Mini header bar */}
+                <div className="flex items-center justify-between bg-white/[0.04] px-4 py-2.5 border-b border-white/8">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+                    <span className="ml-3 text-xs font-semibold text-white/70">Dashboard</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-white/40">Empresa Ejemplo</span>
+                    <span className="rounded-full border border-electric-volt/30 bg-electric-volt/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-electric-volt">
+                      Starter
+                    </span>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="bg-[#0a0f1a] p-4">
+                  {/* Metric cards grid */}
+                  <div className="mb-4 grid grid-cols-2 gap-3">
+                    {[
+                      { label: lang === "es" ? "Automatizaciones activas" : "Active automations", value: "3" },
+                      { label: lang === "es" ? "Mensajes este mes" : "Messages this month", value: "1.247" },
+                      { label: lang === "es" ? "Leads capturados" : "Captured leads", value: "89" },
+                      { label: lang === "es" ? "Horas ahorradas" : "Hours saved", value: "47h" },
+                    ].map((metric) => (
+                      <div
+                        key={metric.label}
+                        className="rounded-xl border border-white/8 bg-white/[0.03] p-3"
+                        style={{ borderTop: "2px solid #C6FF00" }}
+                      >
+                        <p className="mb-1 text-[10px] leading-tight text-white/40">{metric.label}</p>
+                        <p className="text-xl font-bold tracking-tight text-white">{metric.value}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Activity feed */}
+                  <div className="rounded-xl border border-white/8 bg-white/[0.03] p-3">
+                    <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-white/30">
+                      {lang === "es" ? "Actividad reciente" : "Recent activity"}
+                    </p>
+                    <div className="flex flex-col gap-2.5">
+                      {/* Row 1 */}
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="h-2 w-2 shrink-0 rounded-full bg-green-400" />
+                          <span className="truncate text-xs text-white/70">Lead scoring WhatsApp</span>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <span className="text-[10px] text-white/30">
+                            {lang === "es" ? "hace 2 min" : "2 min ago"}
+                          </span>
+                          <span className="rounded-full border border-electric-volt/30 bg-electric-volt/10 px-1.5 py-0.5 text-[10px] font-semibold text-electric-volt">
+                            {lang === "es" ? "activa" : "active"}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Row 2 */}
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="h-2 w-2 shrink-0 rounded-full bg-green-400" />
+                          <span className="truncate text-xs text-white/70">Sync CRM → Sheets</span>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <span className="text-[10px] text-white/30">
+                            {lang === "es" ? "hace 18 min" : "18 min ago"}
+                          </span>
+                          <span className="rounded-full border border-electric-volt/30 bg-electric-volt/10 px-1.5 py-0.5 text-[10px] font-semibold text-electric-volt">
+                            {lang === "es" ? "activa" : "active"}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Row 3 */}
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="h-2 w-2 shrink-0 rounded-full bg-yellow-400" />
+                          <span className="truncate text-xs text-white/70">
+                            {lang === "es" ? "Reporte semanal email" : "Weekly email report"}
+                          </span>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <span className="text-[10px] text-white/30">
+                            {lang === "es" ? "hace 3h" : "3h ago"}
+                          </span>
+                          <span className="rounded-full border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] font-semibold text-white/40">
+                            {lang === "es" ? "pausada" : "paused"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
