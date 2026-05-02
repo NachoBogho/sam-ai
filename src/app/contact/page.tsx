@@ -18,69 +18,74 @@ import {
   Zap,
   MessageSquare,
   HelpCircle,
+  Monitor,
   Loader2,
   AlertCircle,
 } from "lucide-react";
 
 // ─── Web3Forms config ────────────────────────────────────────────────────────
-// 1. Obtené tu access key gratis en https://web3forms.com
-// 2. Agregá en .env.local:
-//    NEXT_PUBLIC_WEB3FORMS_KEY=tu-access-key
 
 const W3F_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 const W3F_CONFIGURED = Boolean(W3F_KEY);
 
-// ─── Servicios ──────────────────────────────────────────────────────────────
+// ─── Services ────────────────────────────────────────────────────────────────
 
 const services = [
   {
     id: "automation",
     icon: Workflow,
-    label: "Automatización",
-    sublabel: "Flujos n8n, integraciones, agentes",
+    label: "AI Automation",
+    sublabel: "n8n flows, integrations, AI agents",
     placeholder:
-      "Contanos qué proceso repetitivo querés automatizar. Por ejemplo: carga de datos entre sistemas, respuestas automáticas, reportes, notificaciones...",
+      "Tell us about the repetitive process you want to automate. For example: data sync between systems, auto-responses, reports, notifications...",
   },
   {
     id: "web",
     icon: Globe,
-    label: "Desarrollo Web",
+    label: "Web Development",
     sublabel: "Landing, e-commerce, portal, app",
     placeholder:
-      "Describí qué tipo de sitio o app necesitás. Por ejemplo: landing page para captar leads, tienda online, portal para clientes...",
+      "Describe the site or app you need. For example: lead-generation landing page, online store, client portal...",
+  },
+  {
+    id: "software",
+    icon: Monitor,
+    label: "Custom Software",
+    sublabel: "Desktop, web apps & internal tools",
+    placeholder:
+      "Tell us about the software you need. For example: inventory management desktop app, internal reporting tool, custom dashboard...",
   },
   {
     id: "both",
     icon: Zap,
-    label: "Web + Automatización",
-    sublabel: "Sitio conectado a tus sistemas",
+    label: "Web + Automation",
+    sublabel: "Site connected to your systems",
     placeholder:
-      "Contanos sobre tu proyecto: qué web necesitás y qué procesos querés automatizar alrededor de ella...",
+      "Tell us about your project: what web solution you need and which processes you want to automate around it...",
   },
   {
     id: "chatbot",
     icon: MessageSquare,
-    label: "Chatbot / IA",
-    sublabel: "Agente de IA para tu negocio",
+    label: "Chatbot / AI Agent",
+    sublabel: "AI agent for your business",
     placeholder:
-      "Describí cómo imaginás el chatbot: ¿para atención al cliente? ¿respuestas sobre tu producto? ¿integrado en qué canal (web, WhatsApp, etc.)?",
+      "Describe how you picture the chatbot: for customer support? product Q&A? integrated on which channel (web, WhatsApp, etc.)?",
   },
   {
     id: "general",
     icon: HelpCircle,
-    label: "Consulta general",
-    sublabel: "No estoy seguro, quiero asesoramiento",
+    label: "General inquiry",
+    sublabel: "Not sure, I want advice",
     placeholder:
-      "Contanos un poco sobre tu empresa y el problema que querés resolver. Te orientamos sin compromiso.",
+      "Tell us a bit about your company and the problem you want to solve. We'll guide you with no commitment.",
   },
 ];
 
-// ─── Component ──────────────────────────────────────────────────────────────
+// ─── Component ───────────────────────────────────────────────────────────────
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactPage() {
-  const [lang, setLang] = useState<"es" | "en">("es");
   const [selectedService, setSelectedService] = useState<string>("");
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({
@@ -102,15 +107,6 @@ export default function ContactPage() {
     if (!selectedService) return;
     setStatus("loading");
 
-    const templateVars = {
-      user_name:     form.name,
-      user_email:    form.email,
-      user_phone:    form.phone,
-      user_company:  form.company || "—",
-      service_label: selectedServiceData?.label ?? selectedService,
-      message:       form.message,
-    };
-
     try {
       const serviceLabel = selectedServiceData?.label ?? selectedService;
 
@@ -127,7 +123,7 @@ export default function ContactPage() {
               company:     form.company || "—",
               service:     serviceLabel,
               message:     form.message,
-              subject:     `Nuevo lead: ${serviceLabel} — ${form.name}`,
+              subject:     `New lead: ${serviceLabel} — ${form.name}`,
               from_name:   "SAM-AI Web",
             }),
           }),
@@ -151,26 +147,18 @@ export default function ContactPage() {
     }
   };
 
-  const isEs = lang === "es";
-
   return (
     <div className="min-h-screen text-white">
-      <SiteHeader
-        activePage="contact"
-        lang={lang}
-        onLangToggle={() => setLang(lang === "es" ? "en" : "es")}
-      />
+      <SiteHeader activePage="contact" />
 
-      {/* ── Main ── */}
       <main className="mx-auto min-h-screen max-w-5xl px-6 pb-8 pt-24">
-        {/* Back */}
         <motion.div initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
           <Link
             href="/"
             className="mb-6 inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-white"
           >
             <ArrowLeft className="size-4" />
-            {isEs ? "Volver al inicio" : "Back to home"}
+            Back to home
           </Link>
         </motion.div>
 
@@ -186,13 +174,9 @@ export default function ContactPage() {
                 <CheckCircle2 className="size-8 text-electric-volt" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white">
-                  {isEs ? "¡Mensaje recibido!" : "Message received!"}
-                </h2>
+                <h2 className="text-2xl font-bold text-white">Message received!</h2>
                 <p className="mt-3 text-text-muted">
-                  {isEs
-                    ? "Te enviamos un mail de confirmación. Nos vamos a comunicar con vos en menos de 24 horas hábiles."
-                    : "We sent you a confirmation email. We'll reach out within 24 business hours."}
+                  We sent you a confirmation email. We&apos;ll reach out within 24 business hours.
                 </p>
               </div>
               <Button
@@ -201,7 +185,7 @@ export default function ContactPage() {
               >
                 <Link href="/">
                   <ArrowLeft className="size-4" />
-                  {isEs ? "Volver al inicio" : "Back to home"}
+                  Back to home
                 </Link>
               </Button>
             </motion.div>
@@ -216,22 +200,20 @@ export default function ContactPage() {
               {/* ── Left: context ── */}
               <div className="flex flex-col justify-start pt-2">
                 <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
-                  {isEs ? "Contacto" : "Contact"}
+                  Contact
                 </p>
                 <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                  {isEs ? "Contanos qué necesitás" : "Tell us what you need"}
+                  Tell us what you need
                 </h1>
                 <p className="mt-3 text-base leading-relaxed text-text-muted">
-                  {isEs
-                    ? "Elegí el servicio que más te interesa y nos ponemos en contacto. Sin compromiso."
-                    : "Pick the service that interests you most and we'll get in touch. No commitment."}
+                  Pick the service that interests you most and we&apos;ll get in touch. No commitment.
                 </p>
 
                 <ul className="mt-6 space-y-3">
                   {[
-                    { icon: Clock, text: isEs ? "Respondemos en < 24 h hábiles" : "We reply in < 24 business hours" },
-                    { icon: CheckCircle2, text: isEs ? "Recibís un mail de confirmación automático" : "You get an instant confirmation email" },
-                    { icon: Shield, text: isEs ? "Sin compromisos ni letra chica" : "No commitment, no fine print" },
+                    { icon: Clock, text: "We reply in < 24 business hours" },
+                    { icon: CheckCircle2, text: "You get an instant confirmation email" },
+                    { icon: Shield, text: "No commitment, no fine print" },
                   ].map((item) => (
                     <li key={item.text} className="flex items-center gap-3">
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-electric-volt/20 bg-electric-volt/10">
@@ -250,10 +232,9 @@ export default function ContactPage() {
                 onSubmit={handleSubmit}
                 className="rounded-2xl border border-white/10 bg-black/40 p-5 backdrop-blur-xl md:p-7 space-y-4"
               >
-                {/* Step 1: service */}
                 <div className="space-y-3">
                   <Label className="text-sm font-semibold text-white">
-                    {isEs ? "¿Qué servicio te interesa?" : "Which service interests you?"}
+                    Which service interests you?
                     <span className="ml-1 text-electric-volt">*</span>
                   </Label>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
@@ -285,11 +266,10 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Step 2: personal data */}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label htmlFor="name" className="text-xs font-medium text-white/50">
-                      {isEs ? "Nombre" : "Name"} <span className="text-electric-volt">*</span>
+                      Name <span className="text-electric-volt">*</span>
                     </Label>
                     <Input
                       id="name"
@@ -298,14 +278,14 @@ export default function ContactPage() {
                       required
                       value={form.name}
                       onChange={handleChange}
-                      placeholder={isEs ? "Tu nombre" : "Your name"}
+                      placeholder="Your name"
                       className="border-white/10 bg-white/5 text-white placeholder:text-white/25 focus-visible:ring-electric-volt"
                     />
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="company" className="text-xs font-medium text-white/50">
-                      {isEs ? "Empresa" : "Company"}{" "}
-                      <span className="text-white/25 text-[10px]">({isEs ? "opcional" : "optional"})</span>
+                      Company{" "}
+                      <span className="text-white/25 text-[10px]">(optional)</span>
                     </Label>
                     <Input
                       id="company"
@@ -313,7 +293,7 @@ export default function ContactPage() {
                       type="text"
                       value={form.company}
                       onChange={handleChange}
-                      placeholder={isEs ? "Nombre de la empresa" : "Company name"}
+                      placeholder="Company name"
                       className="border-white/10 bg-white/5 text-white placeholder:text-white/25 focus-visible:ring-electric-volt"
                     />
                   </div>
@@ -331,13 +311,13 @@ export default function ContactPage() {
                       required
                       value={form.email}
                       onChange={handleChange}
-                      placeholder={isEs ? "tu@empresa.com" : "you@company.com"}
+                      placeholder="you@company.com"
                       className="border-white/10 bg-white/5 text-white placeholder:text-white/25 focus-visible:ring-electric-volt"
                     />
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="phone" className="text-xs font-medium text-white/50">
-                      {isEs ? "Teléfono / WhatsApp" : "Phone / WhatsApp"}{" "}
+                      Phone / WhatsApp{" "}
                       <span className="text-electric-volt">*</span>
                     </Label>
                     <Input
@@ -347,16 +327,15 @@ export default function ContactPage() {
                       required
                       value={form.phone}
                       onChange={handleChange}
-                      placeholder="+54 9 11 ..."
+                      placeholder="+1 (555) ..."
                       className="border-white/10 bg-white/5 text-white placeholder:text-white/25 focus-visible:ring-electric-volt"
                     />
                   </div>
                 </div>
 
-                {/* Step 3: message — placeholder changes with service */}
                 <div className="space-y-1.5">
                   <Label htmlFor="message" className="text-xs font-medium text-white/50">
-                    {isEs ? "Contanos más" : "Tell us more"} <span className="text-electric-volt">*</span>
+                    Tell us more <span className="text-electric-volt">*</span>
                   </Label>
                   <textarea
                     id="message"
@@ -367,21 +346,16 @@ export default function ContactPage() {
                     onChange={handleChange}
                     placeholder={
                       selectedServiceData?.placeholder ??
-                      (isEs
-                        ? "Primero elegí un servicio arriba, y después contanos qué necesitás..."
-                        : "First pick a service above, then tell us what you need...")
+                      "First pick a service above, then tell us what you need..."
                     }
                     className="flex w-full resize-none rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/25 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-electric-volt transition-all"
                   />
                 </div>
 
-                {/* Error */}
                 {status === "error" && (
                   <div className="flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
                     <AlertCircle className="size-4 shrink-0" />
-                    {isEs
-                      ? "Algo salió mal. Intentá de nuevo o escribinos directamente."
-                      : "Something went wrong. Try again or reach out directly."}
+                    Something went wrong. Try again or reach out directly.
                   </div>
                 )}
 
@@ -394,20 +368,18 @@ export default function ContactPage() {
                   {status === "loading" ? (
                     <>
                       <Loader2 className="size-4 animate-spin" />
-                      {isEs ? "Enviando..." : "Sending..."}
+                      Sending...
                     </>
                   ) : (
                     <>
-                      {isEs ? "Enviar consulta" : "Send inquiry"}
+                      Send inquiry
                       <ArrowRight className="size-4" />
                     </>
                   )}
                 </Button>
 
                 <p className="text-center text-xs text-white/25">
-                  {isEs
-                    ? "Al enviar, recibís un mail de confirmación automático."
-                    : "On submit, you receive an automatic confirmation email."}
+                  On submit, you receive an automatic confirmation email.
                 </p>
               </form>
             </motion.div>

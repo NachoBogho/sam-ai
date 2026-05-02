@@ -18,22 +18,24 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL("https://samdev-ai.com"),
   title: {
-    default: "Automatización con IA para Empresas | SAM-AI",
+    default: "AI Automation, Web Development & Custom Software | SAM-AI",
     template: "%s | SAM-AI",
   },
   description:
-    "Automatizamos procesos de tu empresa con IA: chatbots 24/7, integraciones entre apps y flujos n8n. Ahorrá horas de trabajo manual. Consulta gratuita.",
+    "SAM-AI helps small and medium businesses automate operations, launch on the web, and build custom software. AI agents, n8n flows, and tailored development. Free audit.",
   keywords: [
-    "automatización con IA",
-    "chatbot para empresas",
-    "n8n automatización",
-    "agencia automatización IA",
-    "integración de aplicaciones",
-    "automatización de procesos",
+    "AI automation",
+    "business automation",
+    "n8n automation",
+    "custom software development",
+    "web development agency",
+    "chatbot for business",
+    "app integrations",
+    "SMB software",
     "SAM-AI",
-    "agentes de IA",
-    "automatización LATAM",
-    "chatbot inteligente",
+    "AI agents",
+    "internal tools",
+    "desktop application development",
   ],
   authors: [{ name: "SAM-AI" }],
   creator: "SAM-AI",
@@ -41,9 +43,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Automatización con IA para Empresas | SAM-AI",
+    title: "AI Automation, Web Development & Custom Software | SAM-AI",
     description:
-      "Chatbots 24/7, automatizaciones n8n e integración de apps. Liberá a tu equipo del trabajo manual. Consulta gratuita.",
+      "Chatbots 24/7, n8n automations, web development and custom software for SMBs. Free audit — no commitment.",
     url: "https://samdev-ai.com",
     siteName: "SAM-AI",
     images: [
@@ -51,17 +53,17 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "SAM-AI — Automatización con IA para Empresas",
+        alt: "SAM-AI — AI Automation, Web Development & Custom Software",
       },
     ],
-    locale: "es_AR",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Automatización con IA para Empresas | SAM-AI",
+    title: "AI Automation, Web Development & Custom Software | SAM-AI",
     description:
-      "Chatbots 24/7, automatizaciones n8n e integración de apps. Consulta gratuita.",
+      "Chatbots 24/7, n8n automations and custom software for SMBs. Free audit.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -85,48 +87,43 @@ const jsonLd = {
   "@type": "ProfessionalService",
   name: "SAM-AI",
   description:
-    "Automatizamos procesos empresariales con IA: chatbots 24/7, flujos n8n e integraciones entre aplicaciones.",
+    "SAM-AI helps small and medium businesses automate operations, launch on the web, and build custom software — AI agents, n8n flows, and tailored development.",
   url: "https://samdev-ai.com",
   logo: "https://samdev-ai.com/logo.png",
   serviceType: [
-    "Automatización de Procesos con IA",
-    "Desarrollo de Chatbots",
-    "Integración de Aplicaciones",
-    "Automatización n8n",
-    "Desarrollo Web",
+    "AI Process Automation",
+    "Chatbot Development",
+    "App Integrations",
+    "n8n Automation",
+    "Web Development",
+    "Custom Software Development",
   ],
-  areaServed: "América Latina",
+  areaServed: "Worldwide",
   offers: [
     {
       "@type": "Offer",
-      name: "Chatbots Inteligentes",
+      name: "AI Automation",
       description:
-        "Atención 24/7 entrenada con tu base de conocimiento, integrada en web, WhatsApp o email",
+        "n8n flows and AI agents that eliminate manual work and connect your tools 24/7",
     },
     {
       "@type": "Offer",
-      name: "Automatización de Procesos",
+      name: "Web Development",
       description:
-        "Flujos n8n que eliminan el trabajo manual y conectan tus herramientas",
+        "Landing pages, e-commerce and portals built with Next.js with native automation",
     },
     {
       "@type": "Offer",
-      name: "Conectividad entre Apps",
+      name: "Custom Software",
       description:
-        "CRM, facturación, email y bases de datos integrados en un solo flujo",
-    },
-    {
-      "@type": "Offer",
-      name: "Desarrollo Web",
-      description:
-        "Landings, e-commerce y portales construidos con Next.js y automatización nativa",
+        "Desktop apps, internal tools, and data systems built exactly to your spec",
     },
   ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales",
     url: "https://samdev-ai.com/contact",
-    availableLanguage: ["Spanish", "English"],
+    availableLanguage: ["English"],
   },
 };
 
@@ -136,7 +133,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
+    <html lang="en" className="dark">
       <head>
         <script
           type="application/ld+json"

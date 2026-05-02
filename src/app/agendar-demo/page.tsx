@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { SiteHeader } from "@/components/site-header";
 import {
@@ -14,38 +14,12 @@ import {
 } from "lucide-react";
 
 // ─── Calendly config ──────────────────────────────────────────────────────────
-// Una vez que tengas tu cuenta de Calendly, reemplazá esta URL con la tuya.
-// Ejemplo: "https://calendly.com/sam-ai/demo-30min"
 const CALENDLY_URL = "https://calendly.com/contacto-samdev-ai/30min";
 const CALENDLY_CONFIGURED = Boolean(CALENDLY_URL);
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
-const expectItemsEs = [
-  {
-    icon: Clock,
-    title: "30 minutos exactos",
-    description: "Una sesión enfocada, sin rodeos.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Auditoría inicial en vivo",
-    description:
-      "Revisamos tus procesos actuales y dónde la automatización tiene más impacto.",
-  },
-  {
-    icon: Zap,
-    title: "Propuesta personalizada",
-    description: "Te mostramos un plan concreto adaptado a tu empresa.",
-  },
-  {
-    icon: Users,
-    title: "Sin compromiso",
-    description: "100% gratuita. Vos decidís si avanzamos.",
-  },
-];
-
-const expectItemsEn = [
+const expectItems = [
   {
     icon: Clock,
     title: "Exactly 30 minutes",
@@ -54,8 +28,7 @@ const expectItemsEn = [
   {
     icon: CheckCircle2,
     title: "Live initial audit",
-    description:
-      "We review your current processes and where automation has the most impact.",
+    description: "We review your current processes and where automation has the most impact.",
   },
   {
     icon: Zap,
@@ -72,15 +45,10 @@ const expectItemsEn = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function AgendarDemoPage() {
-  const [lang, setLang] = useState<"es" | "en">("es");
-  const isEs = lang === "es";
-  const expectItems = isEs ? expectItemsEs : expectItemsEn;
-
   useEffect(() => {
     if (!CALENDLY_CONFIGURED) return;
     const existing = document.querySelector('script[src*="calendly"]');
     if (existing) {
-      // Script ya existe — reinicializar el widget manualmente
       (window as any).Calendly?.initInlineWidget({
         url: CALENDLY_URL,
         parentElement: document.querySelector(".calendly-inline-widget"),
@@ -95,15 +63,9 @@ export default function AgendarDemoPage() {
 
   return (
     <div className="min-h-screen text-white">
-      <SiteHeader
-        activePage="demo"
-        lang={lang}
-        onLangToggle={() => setLang(lang === "es" ? "en" : "es")}
-      />
+      <SiteHeader activePage="demo" />
 
-      {/* ── Main ── */}
       <main className="mx-auto min-h-screen max-w-6xl px-6 pb-8 pt-24">
-        {/* Back */}
         <motion.div
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
@@ -114,7 +76,7 @@ export default function AgendarDemoPage() {
             className="mb-6 inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-white"
           >
             <ArrowLeft className="size-4" />
-            {isEs ? "Volver al inicio" : "Back to home"}
+            Back to home
           </Link>
         </motion.div>
 
@@ -127,17 +89,13 @@ export default function AgendarDemoPage() {
           {/* ── Left: context ── */}
           <div className="flex flex-col justify-start pt-2">
             <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-electric-volt">
-              {isEs ? "Demo gratuita" : "Free demo"}
+              Free demo
             </p>
             <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-              {isEs
-                ? "Agendá tu sesión de 30 minutos"
-                : "Book your 30-minute session"}
+              Book your 30-minute session
             </h1>
             <p className="mt-3 text-base leading-relaxed text-text-muted">
-              {isEs
-                ? "Mostranos cómo trabaja tu equipo hoy. En 30 minutos identificamos qué automatizar y cómo hacerlo."
-                : "Show us how your team works today. In 30 minutes we identify what to automate and how."}
+              Show us how your team works today. In 30 minutes we identify what to automate and how.
             </p>
 
             <ul className="mt-6 space-y-4">
@@ -160,32 +118,26 @@ export default function AgendarDemoPage() {
           {/* ── Right: Calendly embed ── */}
           <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl overflow-hidden">
             {CALENDLY_CONFIGURED ? (
-              <>
-                <div
-                  className="calendly-inline-widget w-full"
-                  data-url={CALENDLY_URL}
-                  style={{ minWidth: "320px", height: "650px" }}
-                />
-              </>
+              <div
+                className="calendly-inline-widget w-full"
+                data-url={CALENDLY_URL}
+                style={{ minWidth: "320px", height: "650px" }}
+              />
             ) : (
-              /* Placeholder — se reemplaza con el embed de Calendly */
               <div className="flex h-full min-h-[600px] flex-col items-center justify-center gap-6 p-10 text-center">
                 <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-electric-volt/20 bg-electric-volt/5">
                   <CalendarCheck className="size-9 text-electric-volt" />
                 </div>
                 <div className="max-w-xs">
-                  <p className="text-lg font-semibold text-white">
-                    {isEs ? "Calendly se configurará aquí" : "Calendly will be set up here"}
-                  </p>
+                  <p className="text-lg font-semibold text-white">Calendly will be set up here</p>
                   <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                    {isEs
-                      ? "Una vez vinculada tu cuenta de Calendly, el selector de horarios aparecerá en este espacio."
-                      : "Once your Calendly account is linked, the scheduling widget will appear in this space."}
+                    Once your Calendly account is linked, the scheduling widget will appear in this
+                    space.
                   </p>
                 </div>
                 <div className="mt-2 rounded-xl border border-white/8 bg-white/[0.03] px-5 py-3">
                   <p className="font-mono text-xs text-white/30">
-                    CALENDLY_URL = &quot;https://calendly.com/tu-usuario/30min&quot;
+                    CALENDLY_URL = &quot;https://calendly.com/your-user/30min&quot;
                   </p>
                 </div>
               </div>
